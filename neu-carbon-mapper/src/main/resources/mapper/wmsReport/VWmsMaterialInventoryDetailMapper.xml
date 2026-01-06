@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neu.carbon.wms.mapper.VWmsMaterialInventoryDetailMapper">
-    
+
     <resultMap type="VWmsMaterialInventoryDetail" id="VWmsMaterialInventoryDetailResult">
         <result property="whId"    column="wh_id"    />
         <result property="whRegionId"    column="wh_region_id"    />
@@ -24,32 +24,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="whLocationName"    column="wh_location_name"    />
     </resultMap>
 
+    <!-- 核心修改：对非分组字段添加ANY_VALUE()聚合函数 -->
     <sql id="selectVWmsMaterialInventoryDetailVo">
         SELECT
-		  t.wh_id,
-		  t.wh_region_id,
-		  t.wh_location_id,
-		  SUM(t.inventory) inventory,
-		  SUM(t.lock_inventory) lock_inventory,
-		  t.batch_no,
-		  t.manufacturer,
-		  t.material_id,
-		  t.max_inventory,
-		  t.min_inventory,
-		  t.material_name,
-		  t.material_model,
-		  t.material_specification,
-		  t.material_unit,
-		  t.wh_name,
-		  t.wh_region_name,
-		  t.wh_location_name
-		FROM
-		  v_wms_material_inventory_detail t
+        t.wh_id,
+        t.wh_region_id,
+        t.wh_location_id,
+        SUM(t.inventory) inventory,
+        SUM(t.lock_inventory) lock_inventory,
+        ANY_VALUE(t.batch_no) batch_no,          <!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.manufacturer) manufacturer,  <!-- 新增：ANY_VALUE -->
+        t.material_id,
+        ANY_VALUE(t.max_inventory) max_inventory,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.min_inventory) min_inventory,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.material_name) material_name,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.material_model) material_model,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.material_specification) material_specification,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.material_unit) material_unit,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.wh_name) wh_name,            <!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.wh_region_name) wh_region_name,<!-- 新增：ANY_VALUE -->
+        ANY_VALUE(t.wh_location_name) wh_location_name<!-- 新增：ANY_VALUE -->
+        FROM
+        v_wms_material_inventory_detail t
     </sql>
 
     <select id="selectVWmsMaterialInventoryDetailList" parameterType="VWmsMaterialInventoryDetail" resultMap="VWmsMaterialInventoryDetailResult">
         <include refid="selectVWmsMaterialInventoryDetailVo"/>
-        <where>  
+        <where>
             <if test="whId != null "> and wh_id = #{whId}</if>
             <if test="whRegionId != null "> and wh_region_id = #{whRegionId}</if>
             <if test="whLocationId != null "> and wh_location_id = #{whLocationId}</if>
@@ -65,9 +66,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="whId != null and whRegionId != null and whLocationId == null"> GROUP BY t.`material_id`,t.`wh_id` ,t.`wh_region_id`</if>
         <if test="whId != null and whRegionId != null and whLocationId != null"> GROUP BY t.`material_id`,t.`wh_id` ,t.`wh_region_id`,t.`wh_location_id`</if>
     </select>
-    
+
     <select id="selectVWmsMaterialInventoryDetailById" parameterType="Long" resultMap="VWmsMaterialInventoryDetailResult">
         <include refid="selectVWmsMaterialInventoryDetailVo"/>
         where wh_id = #{whId}
     </select>
 </mapper>
+

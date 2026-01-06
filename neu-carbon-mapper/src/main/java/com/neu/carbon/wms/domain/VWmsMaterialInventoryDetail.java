@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 库存明细报表对象 v_wms_material_inventory_detail
- * 
+ *
  * @author neuedu
  * @date 2022-07-26
  */
@@ -100,159 +100,191 @@ public class VWmsMaterialInventoryDetail extends BaseEntity
     @Excel(name = "库位名称")
     private String whLocationName;
 
-    public void setWhId(Long whId) 
+
+    // ========== 新增字段开始 ==========
+    /** 库存状态（0-正常，1-不足，2-溢出） */
+    @ApiModelProperty("库存状态（0-正常，1-不足，2-溢出）")
+    @Excel(name = "库存状态")
+    private Integer inventoryStatus;
+
+    /** 库存状态名称 */
+    @ApiModelProperty("库存状态名称")
+    @Excel(name = "库存状态名称")
+    private String inventoryStatusName;
+    // ========== 新增字段结束 ==========
+
+    public void setWhId(Long whId)
     {
         this.whId = whId;
     }
 
-    public Long getWhId() 
+    public Long getWhId()
     {
         return whId;
     }
-    public void setWhRegionId(Long whRegionId) 
+    public void setWhRegionId(Long whRegionId)
     {
         this.whRegionId = whRegionId;
     }
 
-    public Long getWhRegionId() 
+    public Long getWhRegionId()
     {
         return whRegionId;
     }
-    public void setWhLocationId(Long whLocationId) 
+    public void setWhLocationId(Long whLocationId)
     {
         this.whLocationId = whLocationId;
     }
 
-    public Long getWhLocationId() 
+    public Long getWhLocationId()
     {
         return whLocationId;
     }
-    public void setInventory(Double inventory) 
+    public void setInventory(Double inventory)
     {
         this.inventory = inventory;
     }
 
-    public Double getInventory() 
+    public Double getInventory()
     {
         return inventory;
     }
-    public void setLockInventory(Double lockInventory) 
+    public void setLockInventory(Double lockInventory)
     {
         this.lockInventory = lockInventory;
     }
 
-    public Double getLockInventory() 
+    public Double getLockInventory()
     {
         return lockInventory;
     }
-    public void setBatchNo(String batchNo) 
+    public void setBatchNo(String batchNo)
     {
         this.batchNo = batchNo;
     }
 
-    public String getBatchNo() 
+    public String getBatchNo()
     {
         return batchNo;
     }
-    public void setManufacturer(String manufacturer) 
+    public void setManufacturer(String manufacturer)
     {
         this.manufacturer = manufacturer;
     }
 
-    public String getManufacturer() 
+    public String getManufacturer()
     {
         return manufacturer;
     }
-    public void setMaterialId(Long materialId) 
+    public void setMaterialId(Long materialId)
     {
         this.materialId = materialId;
     }
 
-    public Long getMaterialId() 
+    public Long getMaterialId()
     {
         return materialId;
     }
-    public void setMaxInventory(Long maxInventory) 
+    public void setMaxInventory(Long maxInventory)
     {
         this.maxInventory = maxInventory;
     }
 
-    public Long getMaxInventory() 
+    public Long getMaxInventory()
     {
         return maxInventory;
     }
-    public void setMinInventory(Long minInventory) 
+    public void setMinInventory(Long minInventory)
     {
         this.minInventory = minInventory;
     }
 
-    public Long getMinInventory() 
+    public Long getMinInventory()
     {
         return minInventory;
     }
-    public void setMaterialName(String materialName) 
+    public void setMaterialName(String materialName)
     {
         this.materialName = materialName;
     }
 
-    public String getMaterialName() 
+    public String getMaterialName()
     {
         return materialName;
     }
-    public void setMaterialModel(String materialModel) 
+    public void setMaterialModel(String materialModel)
     {
         this.materialModel = materialModel;
     }
 
-    public String getMaterialModel() 
+    public String getMaterialModel()
     {
         return materialModel;
     }
-    public void setMaterialSpecification(String materialSpecification) 
+    public void setMaterialSpecification(String materialSpecification)
     {
         this.materialSpecification = materialSpecification;
     }
 
-    public String getMaterialSpecification() 
+    public String getMaterialSpecification()
     {
         return materialSpecification;
     }
-    public void setMaterialUnit(String materialUnit) 
+    public void setMaterialUnit(String materialUnit)
     {
         this.materialUnit = materialUnit;
     }
 
-    public String getMaterialUnit() 
+    public String getMaterialUnit()
     {
         return materialUnit;
     }
-    public void setWhName(String whName) 
+    public void setWhName(String whName)
     {
         this.whName = whName;
     }
 
-    public String getWhName() 
+    public String getWhName()
     {
         return whName;
     }
-    public void setWhRegionName(String whRegionName) 
+    public void setWhRegionName(String whRegionName)
     {
         this.whRegionName = whRegionName;
     }
 
-    public String getWhRegionName() 
+    public String getWhRegionName()
     {
         return whRegionName;
     }
-    public void setWhLocationName(String whLocationName) 
+    public void setWhLocationName(String whLocationName)
     {
         this.whLocationName = whLocationName;
     }
 
-    public String getWhLocationName() 
+    public String getWhLocationName()
     {
         return whLocationName;
     }
+
+
+    // ========== 新增getter/setter开始 ==========
+    public Integer getInventoryStatus() {
+        return inventoryStatus;
+    }
+
+    public void setInventoryStatus(Integer inventoryStatus) {
+        this.inventoryStatus = inventoryStatus;
+    }
+
+    public String getInventoryStatusName() {
+        return inventoryStatusName;
+    }
+
+    public void setInventoryStatusName(String inventoryStatusName) {
+        this.inventoryStatusName = inventoryStatusName;
+    }
+    // ========== 新增getter/setter结束 ==========
 
     @Override
     public String toString() {
@@ -274,6 +306,8 @@ public class VWmsMaterialInventoryDetail extends BaseEntity
             .append("whName", getWhName())
             .append("whRegionName", getWhRegionName())
             .append("whLocationName", getWhLocationName())
+                .append("inventoryStatus", getInventoryStatus())
+                .append("inventoryStatusName", getInventoryStatusName())
             .toString();
     }
 }
