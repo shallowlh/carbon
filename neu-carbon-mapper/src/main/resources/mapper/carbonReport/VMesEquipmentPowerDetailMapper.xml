@@ -62,7 +62,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
             <if test="productLineName != null  and productLineName != ''"> and product_line_name like concat('%', #{productLineName}, '%')</if>
         </where>
-        GROUP BY equipment_id, equipment_name, plan_id, bom_id, order_id, product_date, material_id, process_id, product_line_id, process_name, product_line_name) t
+        GROUP BY equipment_id, equipment_name, plan_id, bom_id, order_id, product_date, material_id, process_id, product_line_id, power_consume, process_name, product_line_name
+		      ) t
   		ORDER BY t.total_power_consume desc
     </select>
     

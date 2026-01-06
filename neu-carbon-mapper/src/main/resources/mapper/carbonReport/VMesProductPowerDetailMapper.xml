@@ -74,7 +74,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and product_line_name like concat('%', #{productLineName}, '%')
 			</if>
 		</where>
-		GROUP BY material_id, plan_id, bom_id, order_id, product_date, process_id, product_line_id, power_consume, process_name, product_line_name, material_name, material_model, material_specification, material_unit
+		GROUP BY material_id, plan_id, bom_id,
+			     order_id, product_date, process_id, product_line_id,
+			     power_consume, process_name, product_line_name, material_name, material_model,
+			     material_specification, material_unit
 		) t
 		LEFT JOIN (
 		SELECT w.material_id, SUM(w.total_inventory) AS total_inventory
